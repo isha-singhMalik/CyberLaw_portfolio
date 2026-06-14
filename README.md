@@ -11,7 +11,7 @@
 
 ## About
 
-I am a CEH v12 certified cybersecurity specialist and trainer currently building formal expertise in cyber law alongside an LLB (self-paced, 3-year programme). I have trained 10,000+ learners in ethical hacking, penetration testing, and digital forensics.
+I am a CEH v12 certified cybersecurity specialist and trainer currently building formal expertise in cyber law alongside an LLB (self-paced, 3-year programme). I have trained 16,000+ learners in ethical hacking, penetration testing, and digital forensics.
 
 This portfolio covers my cyber law practice specifically — the services I offer, the industries I work with, my published analysis, and the direct mapping between my technical skills and the legal provisions they correspond to under Indian law.
 
