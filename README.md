@@ -3,7 +3,7 @@
 > Personal portfolio website for my cyber law consulting practice.  
 > Built at the intersection of offensive cybersecurity and Indian cyber law.
 
-🌐 **Live site:** []  
+🌐 **Live site:** [https://isha-singhmalik.github.io/CyberLaw_portfolio/]  
 📧 **Contact:** ishamalik2427@gmail.com  
 💼 **LinkedIn:** [linkedin.com/in/ishasinghmalik](https://www.linkedin.com/in/ishasinghmalik/)
 
