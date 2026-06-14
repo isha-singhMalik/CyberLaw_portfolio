@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Isha Singh Malik — Cyber Law</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #080c14;
+  --bg2: #0d1320;
+  --bg3: #111927;
+  --panel: #0f1825;
+  --blue: #2d6ef7;
+  --blue-glow: rgba(45,110,247,0.18);
+  --blue-dim: #1a3a8a;
+  --gold: #c8953a;
+  --gold-glow: rgba(200,149,58,0.15);
+  --white: #f0f4ff;
+  --muted: #6b7a99;
+  --border: rgba(255,255,255,0.07);
+  --border-blue: rgba(45,110,247,0.3);
+  --mono: 'Space Mono', monospace;
+  --head: 'Space Grotesk', sans-serif;
+  --body: 'Inter', sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--body);background:var(--bg);color:var(--white);font-size:16px;line-height:1.6;overflow-x:hidden;}
+
+/* SCANLINE OVERLAY */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:999;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3rem;height:60px;
+  background:rgba(8,12,20,0.92);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(12px);
+}
+.nav-brand{
+  font-family:var(--mono);font-size:0.78rem;color:var(--blue);
+  letter-spacing:0.1em;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.nav-brand::before{content:'>';color:var(--gold);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{
+  font-family:var(--mono);font-size:0.7rem;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--muted);text-decoration:none;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--blue);}
+.nav-badge{
+  font-family:var(--mono);font-size:0.65rem;padding:0.25rem 0.6rem;
+  border:1px solid var(--gold);color:var(--gold);letter-spacing:0.08em;
+}
+
+/* HERO */
+#hero{
+  min-height:100vh;padding-top:60px;
+  display:grid;grid-template-columns:1fr 1fr;
+  position:relative;overflow:hidden;
+}
+#hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 60% at 70% 50%, rgba(45,110,247,0.08) 0%, transparent 70%);
+  pointer-events:none;
+}
+.grid-bg{
+  position:absolute;inset:0;pointer-events:none;opacity:0.4;
+  background-image:
+    linear-gradient(var(--border) 1px,transparent 1px),
+    linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.hero-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5rem 4rem 5rem 5rem;position:relative;z-index:1;
+}
+.terminal-line{
+  font-family:var(--mono);font-size:0.72rem;color:var(--gold);
+  letter-spacing:0.1em;margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.terminal-line::before{content:'$';color:var(--muted);}
+.blink{animation:blink 1.2s step-end infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+.hero-name{
+  font-family:var(--head);font-size:clamp(3rem,5.5vw,4.8rem);
+  font-weight:700;line-height:1.05;color:var(--white);margin-bottom:0.4rem;
+  letter-spacing:-0.02em;
+}
+.hero-name span{color:var(--blue);}
+.hero-role{
+  font-family:var(--mono);font-size:0.85rem;color:var(--gold);
+  letter-spacing:0.06em;margin-bottom:2rem;
+  border-left:2px solid var(--gold);padding-left:0.75rem;
+}
+.hero-desc{
+  font-size:0.92rem;color:var(--muted);line-height:1.8;
+  max-width:460px;margin-bottom:2.5rem;
+}
+.hero-desc strong{color:var(--white);}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-blue{
+  padding:0.75rem 1.75rem;background:var(--blue);color:var(--white);
+  border:none;font-family:var(--mono);font-size:0.72rem;
+  letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;
+  cursor:pointer;transition:all 0.2s;
+  box-shadow:0 0 20px rgba(45,110,247,0.3);
+}
+.btn-blue:hover{background:#1a5de8;transform:translateY(-2px);box-shadow:0 0 32px rgba(45,110,247,0.5);}
+.btn-ghost{
+  padding:0.75rem 1.75rem;background:transparent;
+  color:var(--muted);border:1px solid var(--border);
+  font-family:var(--mono);font-size:0.72rem;letter-spacing:0.08em;
+  text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all 0.2s;
+}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue);}
+
+.hero-right{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5rem 4rem;position:relative;z-index:1;
+  border-left:1px solid var(--border);
+}
+.stats-label{
+  font-family:var(--mono);font-size:0.65rem;color:var(--muted);
+  letter-spacing:0.12em;text-transform:uppercase;margin-bottom:2rem;
+}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+.stat-block{
+  background:var(--bg);padding:1.75rem 1.5rem;
+  transition:background 0.2s;
+}
+.stat-block:hover{background:var(--bg2);}
+.stat-num{
+  font-family:var(--head);font-size:2rem;font-weight:700;
+  color:var(--white);margin-bottom:0.25rem;
+}
+.stat-num em{color:var(--blue);font-style:normal;}
+.stat-desc{font-family:var(--mono);font-size:0.65rem;color:var(--muted);letter-spacing:0.06em;line-height:1.5;}
+
+/* TICKER */
+.ticker-wrap{
+  background:var(--bg2);border-top:1px solid var(--border-blue);
+  border-bottom:1px solid var(--border-blue);
+  overflow:hidden;padding:0.6rem 0;white-space:nowrap;
+}
+.ticker-track{display:inline-flex;animation:ticker 30s linear infinite;}
+.ticker-item{
+  font-family:var(--mono);font-size:0.65rem;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--muted);padding:0 1.5rem;
+}
+.ticker-item span{color:var(--blue);}
+.ticker-sep{color:var(--border-blue);margin:0 0.25rem;}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* SECTION BASE */
+section{padding:5rem;}
+.sec-eyebrow{
+  font-family:var(--mono);font-size:0.65rem;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--blue);margin-bottom:1rem;
+  display:flex;align-items:center;gap:0.6rem;
+}
+.sec-eyebrow::before{content:'//';color:var(--muted);}
+.sec-title{
+  font-family:var(--head);font-size:clamp(1.8rem,3vw,2.6rem);
+  font-weight:700;color:var(--white);line-height:1.15;
+  letter-spacing:-0.02em;margin-bottom:1rem;
+}
+.sec-sub{font-size:0.9rem;color:var(--muted);max-width:560px;line-height:1.8;margin-bottom:3rem;}
+.sec-rule{width:2.5rem;height:2px;background:var(--blue);margin-bottom:2rem;
+  box-shadow:0 0 8px rgba(45,110,247,0.6);}
+
+/* INDUSTRIES */
+#industries{background:var(--bg);}
+.ind-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1px;background:var(--border);
+}
+.ind-card{
+  background:var(--panel);padding:2rem 1.75rem;
+  position:relative;overflow:hidden;cursor:default;
+  transition:background 0.25s;
+}
+.ind-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 80% at 50% 0%, var(--blue-glow) 0%,transparent 70%);
+  opacity:0;transition:opacity 0.3s;
+}
+.ind-card:hover::before{opacity:1;}
+.ind-card:hover{background:var(--bg2);}
+.ind-icon{font-size:1.5rem;margin-bottom:1rem;display:block;}
+.ind-name{
+  font-family:var(--head);font-size:1rem;font-weight:600;
+  color:var(--white);margin-bottom:0.5rem;
+}
+.ind-desc{font-size:0.82rem;color:var(--muted);line-height:1.65;margin-bottom:1.25rem;}
+.ind-tags{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.ind-tag{
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.07em;
+  padding:0.2rem 0.5rem;border:1px solid var(--border-blue);
+  color:var(--blue);background:rgba(45,110,247,0.06);
+}
+
+/* SERVICES */
+#services{background:var(--bg2);}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;}
+.svc-card{
+  border:1px solid var(--border);padding:2rem;
+  position:relative;overflow:hidden;transition:border-color 0.25s,transform 0.2s;
+  background:var(--panel);
+}
+.svc-card:hover{border-color:var(--blue-dim);transform:translateY(-2px);}
+.svc-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--blue),transparent);
+  transform:scaleX(0);transform-origin:left;transition:transform 0.3s;
+}
+.svc-card:hover::after{transform:scaleX(1);}
+.svc-num{
+  font-family:var(--mono);font-size:0.65rem;color:var(--blue);
+  letter-spacing:0.1em;margin-bottom:1rem;
+}
+.svc-name{
+  font-family:var(--head);font-size:1.05rem;font-weight:600;
+  color:var(--white);margin-bottom:0.5rem;
+}
+.svc-desc{font-size:0.85rem;color:var(--muted);line-height:1.7;margin-bottom:1.25rem;}
+.svc-fee{
+  font-family:var(--mono);font-size:0.7rem;color:var(--gold);
+  letter-spacing:0.08em;
+}
+.svc-badge{
+  position:absolute;top:1.25rem;right:1.25rem;
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.07em;
+  padding:0.2rem 0.5rem;border:1px solid rgba(45,247,100,0.3);
+  color:#2df764;background:rgba(45,247,100,0.06);
+}
+
+/* NICHES */
+#niches{background:var(--bg);}
+.niche-list{display:flex;flex-direction:column;gap:1px;background:var(--border);}
+.niche-row{
+  background:var(--panel);padding:1.75rem 2rem;
+  display:grid;grid-template-columns:2rem 1fr auto;
+  align-items:start;gap:1.5rem;
+  transition:background 0.2s;cursor:default;
+}
+.niche-row:hover{background:var(--bg2);}
+.niche-idx{
+  font-family:var(--mono);font-size:0.7rem;color:var(--blue);
+  padding-top:0.2rem;
+}
+.niche-content{}
+.niche-name{
+  font-family:var(--head);font-size:1.05rem;font-weight:600;
+  color:var(--white);margin-bottom:0.35rem;
+}
+.niche-desc{font-size:0.85rem;color:var(--muted);line-height:1.65;}
+.niche-status{
+  font-family:var(--mono);font-size:0.62rem;letter-spacing:0.07em;
+  padding:0.25rem 0.6rem;white-space:nowrap;margin-top:0.2rem;
+}
+.status-now{border:1px solid rgba(45,247,100,0.35);color:#2df764;background:rgba(45,247,100,0.06);}
+.status-soon{border:1px solid rgba(45,110,247,0.35);color:var(--blue);background:rgba(45,110,247,0.06);}
+.status-future{border:1px solid var(--border);color:var(--muted);}
+
+/* EDGE / TECH-LAW */
+#techlaw{
+  background:var(--bg2);
+  position:relative;overflow:hidden;
+}
+#techlaw::before{
+  content:'LAW';
+  position:absolute;right:-2rem;top:50%;transform:translateY(-50%);
+  font-family:var(--head);font-size:16rem;font-weight:700;
+  color:rgba(45,110,247,0.03);line-height:1;pointer-events:none;user-select:none;
+}
+.map-wrap{overflow-x:auto;}
+.map-table{width:100%;border-collapse:collapse;min-width:700px;}
+.map-table thead tr{border-bottom:1px solid var(--border-blue);}
+.map-table th{
+  font-family:var(--mono);font-size:0.65rem;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--muted);
+  padding:0.75rem 1.25rem;text-align:left;
+}
+.map-table td{
+  padding:1rem 1.25rem;border-bottom:1px solid var(--border);
+  font-size:0.85rem;vertical-align:top;
+}
+.map-table tr:last-child td{border-bottom:none;}
+.map-table tr:hover td{background:rgba(45,110,247,0.04);}
+.td-skill{font-weight:500;color:var(--white);}
+.td-law{font-family:var(--mono);font-size:0.75rem;color:var(--blue);}
+.td-note{font-size:0.78rem;color:var(--muted);margin-top:0.2rem;}
+
+/* WRITING */
+#writing{background:var(--bg);}
+.writing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;}
+.article-card{
+  border:1px solid var(--border);padding:2rem;
+  background:var(--panel);transition:border-color 0.25s,transform 0.2s;
+  text-decoration:none;color:inherit;display:block;
+  position:relative;overflow:hidden;
+}
+.article-card:hover{border-color:var(--gold);transform:translateY(-2px);}
+.article-type{
+  font-family:var(--mono);font-size:0.65rem;letter-spacing:0.1em;
+  color:var(--gold);margin-bottom:0.75rem;text-transform:uppercase;
+}
+.article-title{
+  font-family:var(--head);font-size:1.1rem;font-weight:600;
+  color:var(--white);line-height:1.35;margin-bottom:0.75rem;
+}
+.article-desc{font-size:0.83rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;}
+.article-read{
+  font-family:var(--mono);font-size:0.68rem;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--gold);
+  display:flex;align-items:center;gap:0.4rem;
+}
+.article-read::after{content:'→';}
+.article-placeholder{
+  border:1px dashed var(--border);padding:2rem;background:transparent;
+  display:flex;align-items:center;justify-content:center;
+  min-height:200px;
+}
+.placeholder-text{
+  font-family:var(--mono);font-size:0.7rem;color:var(--muted);
+  letter-spacing:0.08em;text-align:center;line-height:1.8;
+}
+
+/* CONTACT */
+#contact{
+  background:var(--bg2);
+  border-top:1px solid var(--border);
+}
+.contact-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+}
+.contact-left .sec-title{max-width:100%;}
+.contact-code{
+  font-family:var(--mono);font-size:0.8rem;color:var(--muted);
+  background:var(--bg);border:1px solid var(--border);
+  padding:1.5rem;line-height:2;
+}
+.contact-code .key{color:var(--blue);}
+.contact-code .val{color:var(--gold);}
+.contact-code .str{color:#2df764;}
+.contact-links{display:flex;flex-direction:column;gap:0.75rem;margin-top:2rem;}
+.contact-link{
+  font-family:var(--mono);font-size:0.75rem;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--muted);text-decoration:none;
+  padding:0.75rem 1.25rem;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  transition:all 0.2s;
+}
+.contact-link:hover{border-color:var(--blue);color:var(--blue);}
+.contact-link::after{content:'→';opacity:0;transition:opacity 0.2s;}
+.contact-link:hover::after{opacity:1;}
+
+footer{
+  background:var(--bg);border-top:1px solid var(--border);
+  padding:1.5rem 5rem;
+  display:flex;justify-content:space-between;align-items:center;
+}
+footer p{font-family:var(--mono);font-size:0.65rem;color:var(--muted);letter-spacing:0.06em;}
+
+@media(max-width:900px){
+  nav{padding:0 1.5rem;}
+  .nav-links,.nav-badge{display:none;}
+  #hero{grid-template-columns:1fr;}
+  .hero-left{padding:3rem 1.5rem;}
+  .hero-right{padding:2rem 1.5rem;border-left:none;border-top:1px solid var(--border);}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  section{padding:3rem 1.5rem;}
+  .contact-inner{grid-template-columns:1fr;}
+  footer{padding:1.5rem;flex-direction:column;gap:0.5rem;text-align:center;}
+  .niche-row{grid-template-columns:2rem 1fr;}.niche-status{grid-column:2;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">isha_singh_malik // cyber_law</div>
+  <ul class="nav-links">
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#niches">Practice</a></li>
+    <li><a href="#techlaw">Tech×Law</a></li>
+    <li><a href="#writing">Writing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-badge">Available for Consulting</div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="grid-bg"></div>
+  <div class="hero-left">
+    <div class="terminal-line">whoami --cyber-law<span class="blink">_</span></div>
+    <h1 class="hero-name">Isha Singh<br/><span>Malik</span></h1>
+    <div class="hero-role">Cybersecurity Specialist × Cyber Law Consultant</div>
+    <p class="hero-desc">
+      CEH v12 certified ethical hacker building formal expertise in Indian cyber law. I sit at the exact intersection most practitioners avoid — <strong>technical enough to break systems, legal enough to prosecute them.</strong> Specialising in cybercrime litigation support, digital evidence, incident response legal advisory, and OSINT-based investigations.
+    </p>
+    <div class="hero-ctas">
+      <a href="#services" class="btn-blue">View Services</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stats-label">// credentials.json</div>
+    <div class="stats-grid">
+      <div class="stat-block">
+        <div class="stat-num"><em>16K+</em></div>
+        <div class="stat-desc">Learners trained in cybersecurity globally</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-num">CEH <em>v12</em></div>
+        <div class="stat-desc">Practical — real attack simulation certification</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-num">IT <em>Act</em></div>
+        <div class="stat-desc">Every section mapped to technical attack vector</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-num">LLB <em>→</em></div>
+        <div class="stat-desc">3-year programme in progress, AIBE prep underway</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item"><span>IT Act §66</span> <span class="ticker-sep">·</span> Hacking & Unauthorised Access</span>
+    <span class="ticker-item"><span>DPDPA 2023</span> <span class="ticker-sep">·</span> Data Protection Advisory</span>
+    <span class="ticker-item"><span>§65B Evidence Act</span> <span class="ticker-sep">·</span> Digital Evidence Admissibility</span>
+    <span class="ticker-item"><span>CERT-In 2022</span> <span class="ticker-sep">·</span> 6-Hour Incident Reporting</span>
+    <span class="ticker-item"><span>OSINT</span> <span class="ticker-sep">·</span> Legally Defensible Investigations</span>
+    <span class="ticker-item"><span>CEH v12</span> <span class="ticker-sep">·</span> Certified Ethical Hacker Practical</span>
+    <span class="ticker-item"><span>AI Liability</span> <span class="ticker-sep">·</span> Deepfake & Algorithmic Harm</span>
+    <span class="ticker-item"><span>§66C IT Act</span> <span class="ticker-sep">·</span> Identity Theft</span>
+    <!-- repeat -->
+    <span class="ticker-item"><span>IT Act §66</span> <span class="ticker-sep">·</span> Hacking & Unauthorised Access</span>
+    <span class="ticker-item"><span>DPDPA 2023</span> <span class="ticker-sep">·</span> Data Protection Advisory</span>
+    <span class="ticker-item"><span>§65B Evidence Act</span> <span class="ticker-sep">·</span> Digital Evidence Admissibility</span>
+    <span class="ticker-item"><span>CERT-In 2022</span> <span class="ticker-sep">·</span> 6-Hour Incident Reporting</span>
+    <span class="ticker-item"><span>OSINT</span> <span class="ticker-sep">·</span> Legally Defensible Investigations</span>
+    <span class="ticker-item"><span>CEH v12</span> <span class="ticker-sep">·</span> Certified Ethical Hacker Practical</span>
+    <span class="ticker-item"><span>AI Liability</span> <span class="ticker-sep">·</span> Deepfake & Algorithmic Harm</span>
+    <span class="ticker-item"><span>§66C IT Act</span> <span class="ticker-sep">·</span> Identity Theft</span>
+  </div>
+</div>
+
+<!-- INDUSTRIES -->
+<section id="industries">
+  <div class="sec-eyebrow">Industries Served</div>
+  <h2 class="sec-title">Who I work with</h2>
+  <div class="sec-rule"></div>
+  <p class="sec-sub">Companies across sectors face cybercrime, data breaches, and regulatory obligations they don't fully understand technically. I bridge both sides.</p>
+  <div class="ind-grid">
+    <div class="ind-card">
+      <span class="ind-icon">🏦</span>
+      <div class="ind-name">Fintech & Banking</div>
+      <p class="ind-desc">UPI fraud, SIM swap attacks, card fraud investigations, RBI cybersecurity framework compliance, PMLA obligations for crypto platforms, data breach response.</p>
+      <div class="ind-tags">
+        <span class="ind-tag">RBI Framework</span>
+        <span class="ind-tag">PMLA</span>
+        <span class="ind-tag">UPI Fraud</span>
+        <span class="ind-tag">§43A IT Act</span>
+      </div>
+    </div>
+    <div class="ind-card">
+      <span class="ind-icon">🏥</span>
+      <div class="ind-name">Healthtech</div>
+      <p class="ind-desc">Health data as sensitive personal data under DPDPA, ABDM compliance, ransomware response for hospitals, patient data breach legal advisory.</p>
+      <div class="ind-tags">
+        <span class="ind-tag">DPDPA Sensitive Data</span>
+        <span class="ind-tag">ABDM</span>
+        <span class="ind-tag">Ransomware Response</span>
+      </div>
+    </div>
+    <div class="ind-card">
+      <span class="ind-icon">🛒</span>
+      <div class="ind-name">E-Commerce & Platforms</div>
+      <p class="ind-desc">Intermediary liability under IT Act §79, IT Rules 2021 compliance, counterfeit goods disputes, grievance officer setup, customer fraud complaints.</p>
+      <div class="ind-tags">
+        <span class="ind-tag">§79 Safe Harbour</span>
+        <span class="ind-tag">IT Rules 2021</span>
+        <span class="ind-tag">Trademark Disputes</span>
+      </div>
+    </div>
+    <div class="ind-card">
+      <span class="ind-icon">🚀</span>
+      <div class="ind-name">Startups & SaaS</div>
+      <p class="ind-desc">DPDPA compliance before investor due diligence, privacy policy review, SaaS contract data clauses, breach response, Terms of Service audit.</p>
+      <div class="ind-tags">
+        <span class="ind-tag">DPDPA 2023</span>
+        <span class="ind-tag">Privacy Policy</span>
+        <span class="ind-tag">Due Diligence</span>
+      </div>
+    </div>
+    <div class="ind-card">
+      <span class="ind-icon">🏢</span>
+      <div class="ind-name">Corporates & Enterprises</div>
+      <p class="ind-desc">Insider threat investigations, employee data handling under DPDPA, corporate espionage legal response, vendor data agreements, CERT-In compliance.</p>
+      <div class="ind-tags">
+        <span class="ind-tag">CERT-In Directions</span>
+        <span class="ind-tag">Insider Threat</span>
+        <span class="ind-tag">Data Contracts</span>
+      </div>
+    </div>
+    <div class="ind-card">
+      <span class="ind-icon">⚖️</span>
+      <div class="ind-name">Law Firms</div>
+      <p class="ind-desc">Technical expert opinions on forensic reports, digital evidence review, cross-examination preparation, attack vector identification for ongoing cybercrime matters.</p>
+      <div class="ind-tags">
+        <span class="ind-tag">Expert Opinion</span>
+        <span class="ind-tag">§65B Analysis</span>
+        <span class="ind-tag">Forensic Review</span>
+      </div>
+    </div>
+    <div class="ind-card">
+      <span class="ind-icon">🎓</span>
+      <div class="ind-name">EdTech & Education</div>
+      <p class="ind-desc">Student data protection, online platform compliance, cyberbullying legal response, content liability, minors' data obligations under DPDPA.</p>
+      <div class="ind-tags">
+        <span class="ind-tag">Children's Data</span>
+        <span class="ind-tag">Platform Liability</span>
+        <span class="ind-tag">DPDPA</span>
+      </div>
+    </div>
+    <div class="ind-card">
+      <span class="ind-icon">🌐</span>
+      <div class="ind-name">MNCs with India-EU Exposure</div>
+      <p class="ind-desc">GDPR-DPDPA gap analysis, cross-border data transfer frameworks, dual regulatory compliance, EU expansion legal advisory — fully remote.</p>
+      <div class="ind-tags">
+        <span class="ind-tag">GDPR</span>
+        <span class="ind-tag">DPDPA</span>
+        <span class="ind-tag">Cross-Border</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="sec-eyebrow">Services</div>
+  <h2 class="sec-title">What I deliver</h2>
+  <div class="sec-rule"></div>
+  <p class="sec-sub">Pre-AIBE — advisory, research, investigations, and technical expert work. All available now. No court representation until bar enrollment.</p>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <div class="svc-badge">Available Now</div>
+      <div class="svc-num">01 // Technical Expert Opinion</div>
+      <div class="svc-name">Forensic Report Analysis</div>
+      <p class="svc-desc">Written technical opinion for law firms and arbitration panels. Forensic image integrity review, hash value verification, chain of custody analysis, attack vector identification. The opinion your lawyers need when they can't read a PCAP file.</p>
+      <div class="svc-fee">// Per matter — contact for scope</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-badge">Available Now</div>
+      <div class="svc-num">02 // Incident Response</div>
+      <div class="svc-name">Legal Advisory During Active Incident</div>
+      <p class="svc-desc">Real-time guidance when your systems are under attack. CERT-In 6-hour reporting, DPDPA breach notification, evidence preservation brief to technical team, ransomware payment legal framework, stakeholder communication review.</p>
+      <div class="svc-fee">// Crisis rate — on-call advisory</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-badge">Available Now</div>
+      <div class="svc-num">03 // OSINT Investigation</div>
+      <div class="svc-name">Legally Defensible Open-Source Intelligence</div>
+      <p class="svc-desc">Identity tracing for anonymous threat actors. Every finding hash-verified, methodology documented, Section 65B certified for court use. Not just intelligence — evidence that actually survives cross-examination.</p>
+      <div class="svc-fee">// Per investigation — scoped engagement</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-badge">Available Now</div>
+      <div class="svc-num">04 // Victim Advisory</div>
+      <div class="svc-name">Cybercrime Complaint & Evidence Guidance</div>
+      <p class="svc-desc">For individuals hit by online fraud, stalking, identity theft, account hacking, or blackmail. Correct sections identified, complaint drafted for cybercrime.gov.in and cyber cell, evidence preservation checklist, C&D letter where applicable.</p>
+      <div class="svc-fee">// Per matter — fixed fee</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-badge">Available Now</div>
+      <div class="svc-num">05 // Cyber Law Research</div>
+      <div class="svc-name">Case Analysis & Legal Commentary</div>
+      <p class="svc-desc">Original research and analysis for law firms, legal publications, and academic institutions. Technical accuracy that pure legal researchers miss — like spotting that the OTP bypass makes one charge into four.</p>
+      <div class="svc-fee">// Per piece — contact for scope</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-badge">Available Now</div>
+      <div class="svc-num">06 // Training</div>
+      <div class="svc-name">Cyber Law Training for Teams</div>
+      <p class="svc-desc">Technical cyber law training for legal teams, law enforcement, and institutions. IT Act, DPDPA, digital evidence standards, cybercrime investigation methodology — taught by someone who has actually run penetration tests.</p>
+      <div class="svc-fee">// Per session — institutional and corporate</div>
+    </div>
+  </div>
+</section>
+
+<!-- NICHES -->
+<section id="niches">
+  <div class="sec-eyebrow">Practice Areas</div>
+  <h2 class="sec-title">Where I specialise</h2>
+  <div class="sec-rule"></div>
+  <p class="sec-sub">Six niches, each requiring the technical-legal combination most practitioners don't have.</p>
+  <div class="niche-list">
+    <div class="niche-row">
+      <div class="niche-idx">01</div>
+      <div class="niche-content">
+        <div class="niche-name">Cybercrime Litigation Support</div>
+        <div class="niche-desc">IT Act offences, IPC cybercrime sections, digital evidence strategy, bail preparation, and cross-examination of forensic witnesses — with technical accuracy that exposes bad forensics before the other side does.</div>
+      </div>
+      <div class="niche-status status-soon">Post-AIBE</div>
+    </div>
+    <div class="niche-row">
+      <div class="niche-idx">02</div>
+      <div class="niche-content">
+        <div class="niche-name">Digital Evidence & Electronic Records</div>
+        <div class="niche-desc">Section 65A/65B Indian Evidence Act. Forensic image integrity, hash verification, certificate defects, chain of custody breaks. The most technical legal specialisation in India — and the one where CEH-level knowledge changes everything.</div>
+      </div>
+      <div class="niche-status status-now">Available Now</div>
+    </div>
+    <div class="niche-row">
+      <div class="niche-idx">03</div>
+      <div class="niche-content">
+        <div class="niche-name">Incident Response Legal Advisory</div>
+        <div class="niche-desc">Real-time legal decisions during active cyber incidents. CERT-In 6-hour clock, DPDPA breach notification, ransomware framework, evidence preservation before remediation. Highest-fee, highest-pressure work in cyber law.</div>
+      </div>
+      <div class="niche-status status-now">Available Now</div>
+    </div>
+    <div class="niche-row">
+      <div class="niche-idx">04</div>
+      <div class="niche-content">
+        <div class="niche-name">OSINT-Based Legal Investigations</div>
+        <div class="niche-desc">Legally defensible open-source intelligence. Identity tracing, evidence preservation, Section 65B certification of OSINT findings. Nobody in India currently occupies this technical-legal intersection. This gap is mine.</div>
+      </div>
+      <div class="niche-status status-now">Available Now</div>
+    </div>
+    <div class="niche-row">
+      <div class="niche-idx">05</div>
+      <div class="niche-content">
+        <div class="niche-name">AI Liability</div>
+        <div class="niche-desc">Deepfake defamation, algorithmic discrimination, AI-caused consumer harm. No dedicated Indian statute yet — building expertise now to own the space when regulation arrives. EU AI Act framework applied to Indian context.</div>
+      </div>
+      <div class="niche-status status-soon">Emerging</div>
+    </div>
+    <div class="niche-row">
+      <div class="niche-idx">06</div>
+      <div class="niche-content">
+        <div class="niche-name">International Cyber Law</div>
+        <div class="niche-desc">GDPR-DPDPA gap analysis for Indian companies with EU exposure. GCC market entry advisory. Cross-border breach response. Entirely remote — no relocation, premium fees.</div>
+      </div>
+      <div class="niche-status status-future">Stage 3</div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH × LAW MAP -->
+<section id="techlaw">
+  <div class="sec-eyebrow">Technical × Legal</div>
+  <h2 class="sec-title">Skills mapped to law</h2>
+  <div class="sec-rule"></div>
+  <p class="sec-sub">Every technical skill I hold maps directly to a legal provision. This is what makes the bridge real, not just claimed.</p>
+  <div class="map-wrap">
+    <table class="map-table">
+      <thead>
+        <tr>
+          <th>Technical Skill</th>
+          <th>Legal Provision</th>
+          <th>Practical Edge</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="td-skill">Penetration Testing / Ethical Hacking (CEH v12)</div></td>
+          <td><div class="td-law">IT Act §66, §43, §66F</div></td>
+          <td><div class="td-note">Distinguish authorised pen test from hacking; identify elements prosecution must prove</div></td>
+        </tr>
+        <tr>
+          <td><div class="td-skill">Digital Forensics — imaging, hash verification</div></td>
+          <td><div class="td-law">Evidence Act §65A, §65B</div></td>
+          <td><div class="td-note">Identify defective 65B certificates; destroy weak forensic reports in cross-examination</div></td>
+        </tr>
+        <tr>
+          <td><div class="td-skill">Network Analysis — Wireshark, packet capture, logs</div></td>
+          <td><div class="td-law">IT Act §66, §69 (interception)</div></td>
+          <td><div class="td-note">Analyse CDRs and server logs; identify dynamic IP attribution errors</div></td>
+        </tr>
+        <tr>
+          <td><div class="td-skill">OSINT — Maltego, Shodan, WHOIS, username correlation</div></td>
+          <td><div class="td-law">Evidence Act §65A/65B, IT Act §66E</div></td>
+          <td><div class="td-note">Trace anonymous threat actors; preserve findings as legally admissible evidence</div></td>
+        </tr>
+        <tr>
+          <td><div class="td-skill">Phishing Detection & Social Engineering Analysis</div></td>
+          <td><div class="td-law">IT Act §66D, §66C, IPC §420</div></td>
+          <td><div class="td-note">Identify OTP bypass method; map attack vector to correct full charge set</div></td>
+        </tr>
+        <tr>
+          <td><div class="td-skill">Malware Analysis — ransomware, trojans, keyloggers</div></td>
+          <td><div class="td-law">IT Act §43(c), §66, §66F</div></td>
+          <td><div class="td-note">Classify malware type for offence severity; identify CERT-In reporting trigger</div></td>
+        </tr>
+        <tr>
+          <td><div class="td-skill">Incident Response — SIEM, EDR, Splunk, log forensics</div></td>
+          <td><div class="td-law">CERT-In Directions 2022, DPDPA §8</div></td>
+          <td><div class="td-note">Real-time legal advisory; evidence preservation before technical remediation begins</div></td>
+        </tr>
+        <tr>
+          <td><div class="td-skill">API Security — ASTRA Framework, REST/GraphQL</div></td>
+          <td><div class="td-law">IT Act §43(a), §43A</div></td>
+          <td><div class="td-note">Assess §79 safe harbour validity; advise on reasonable security practice standard</div></td>
+        </tr>
+        <tr>
+          <td><div class="td-skill">AI Security — prompt injection, adversarial ML</div></td>
+          <td><div class="td-law">IT Act §66, Consumer Protection Act 2019, EU AI Act</div></td>
+          <td><div class="td-note">Identify liable party in AI-caused harm; advise on high-risk AI classification</div></td>
+        </tr>
+        <tr>
+          <td><div class="td-skill">ISO 27001 / NIST / OWASP Compliance</div></td>
+          <td><div class="td-law">IT Act §43A, DPDPA §8(5)</div></td>
+          <td><div class="td-note">Establish or challenge 'reasonable security practice' standard in breach litigation</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- WRITING -->
+<section id="writing">
+  <div class="sec-eyebrow">Published Analysis</div>
+  <h2 class="sec-title">Writing where tech meets law</h2>
+  <div class="sec-rule"></div>
+  <p class="sec-sub">Original analysis where cybersecurity knowledge reveals what pure legal training misses.</p>
+  <div class="writing-grid">
+    <!-- UPDATE href BELOW WITH YOUR MEDIUM ARTICLE URL WHEN PUBLISHED -->
+    <a href="https://mirageinsghts.medium.com/credit-card-fraud-and-the-missing-question-where-was-the-otp-5f0e92c8c79a" class="article-card" target="_blank">
+      <div class="article-type">// Gap Analysis · Medium</div>
+      <div class="article-title">Credit Card Fraud and the Missing Question: Where Was the OTP?</div>
+      <p class="article-desc">A real cybercrime case analysis omits the OTP bypass entirely — turning what looks like one charge into four distinct offences under the IT Act and IPC. Section 66C, 66D, §336 BNS, §66. Here is what should have been identified and why it changes the entire prosecution.</p>
+      <span class="article-read">Read on Medium</span>
+    </a>
+    <div class="article-placeholder">
+      <div class="placeholder-text">
+        // next_article.md<br/>
+        Your next case analysis<br/>
+        or technical-legal commentary<br/>
+        <span style="color:var(--blue)">[ add link when published ]</span>
+      </div>
+    </div>
+    <div class="article-placeholder">
+      <div class="placeholder-text">
+        // next_article.md<br/>
+        Your next case analysis<br/>
+        or technical-legal commentary<br/>
+        <span style="color:var(--blue)">[ add link when published ]</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <div class="sec-eyebrow">Contact</div>
+      <h2 class="sec-title">Let's work.</h2>
+      <div class="sec-rule"></div>
+      <p class="sec-sub">Need a technical expert opinion, incident response legal advisory, OSINT investigation, or cyber law training? Reach out directly.</p>
+      <div class="contact-links">
+        <a href="mailto:ishamalik2427@gmail.com" class="contact-link">ishamalik2427@gmail.com</a>
+        <a href="https://www.linkedin.com/in/ishasinghmalik/" class="contact-link" target="_blank">linkedin.com/in/ishasinghmalik</a>
+        <a href="tel:7082949351" class="contact-link">+91 7082949351</a>
+      </div>
+    </div>
+    <div class="contact-right">
+      <div class="contact-code">
+        <span class="key">const</span> consultant = {<br/>
+        &nbsp;&nbsp;<span class="key">name</span>: <span class="str">"Isha Singh Malik"</span>,<br/>
+        &nbsp;&nbsp;<span class="key">role</span>: <span class="str">"Cybersecurity × Cyber Law"</span>,<br/>
+        &nbsp;&nbsp;<span class="key">cert</span>: <span class="str">"CEH v12 Practical"</span>,<br/>
+        &nbsp;&nbsp;<span class="key">llb</span>: <span class="str">"In Progress → AIBE"</span>,<br/>
+        &nbsp;&nbsp;<span class="key">trained</span>: <span class="val">16000+</span>,<br/>
+        &nbsp;&nbsp;<span class="key">available</span>: <span class="str">true</span>,<br/>
+        &nbsp;&nbsp;<span class="key">location</span>: <span class="str">"India"</span>,<br/>
+        &nbsp;&nbsp;<span class="key">remote</span>: <span class="str">true</span><br/>
+        };
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Isha Singh Malik — Cyber Law Portfolio</p>
+  <p>Built at the intersection of offensive security and Indian cyber law</p>
+</footer>
+
+</body>
+</html>
