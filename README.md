@@ -31,7 +31,6 @@ This portfolio covers my cyber law practice specifically — the services I offe
 
 - Pure HTML + CSS — no frameworks, no dependencies
 - Google Fonts — Space Grotesk, Space Mono, Inter
-- Deployed via Netlify with auto-deploy from this repo
 
 ---
 
